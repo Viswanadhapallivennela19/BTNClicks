@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Task-3</title>
+	<style>
+		*{
+			padding: 0;
+			margin: 0;
+		}
+		.btn-parent{
+			width: 50%;
+			height: max-content;
+			padding: 1rem;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			gap: .5rem;
+			box-shadow: 2px 2px 5px 5px rgba(0, 0, 0, 0.171);
+			margin:1rem auto;
+		}
+		.btn-parent button{
+			padding: .5rem 1rem;
+			background: #356774;
+			color:black;
+			border-radius: .2rem;
+		}
+		.btn-parent button:hover{
+			background: #60dbcdde;
+		}
+		#parent{
+			background-color: gray;
+			color:white;
+			width:90%;
+			height: max-content;
+			padding: 1rem;
+			border-radius:.2rem;
+			margin:.5rem auto;
+			display: flex;
+			flex-wrap: wrap;
+			justify-content: center;
+			align-items: center;
+			align-content: center;
+			gap: .5rem;
+		}
+		.child{
+			background-color: #356774;
+			box-shadow: 2px 2px 5px 5px rgba(0, 0, 0, 0.135);
+			padding: .3rem;
+		}
+		.styles{
+			width: max-content;
+			height: max-content;
+			border-radius: 50%;
+			padding: 1rem;
+			box-shadow: 2px 5px rgba(0, 0, 0, 0.208);
+			background-color: lightgrey;
+			color:white;
+			margin: .2rem auto;
+		}
+	</style>
+</head>
+<body>
+	<div class="btn-parent">
+		<button id="new-user">Add new User</button>
+		<button id="show-user">Show Users</button>
+		<button id="clear-users">Clear</button>
+	</div>
+	<div id="parent">
+		 
+	</div>
+	<script>
+		let parent=document.getElementById('parent')
+		let newBtn=document.getElementById('new-user')
+		let showBtn=document.getElementById('show-user')
+		let clearBtn=document.getElementById('clear-users')
+		parent.innerHTML='Sorry!no Users are there'
+		let users_list=[]
+		let new_User=()=>{
+			let name=window.prompt("Enter Your name :").trim()
+			let email=window.prompt("Enter Your Email :").trim().toLowerCase()
+			if(users_list.length==0){
+				
+				users_list.push({id:users_list.length+1,name:name,email:email})
+				window.alert("Successfully added the User")
+				console.log(name,email)
+			}
+			else{
+				let name_exist=users_list.some(user=>user.name.includes(name))
+				let email_exist=users_list.some(user=>user.email.includes(email))
+				if(!(name_exist) && !(email_exist)){
+					users_list.push({id:users_list.length+1,name:name,email:email})
+					window.alert("Successfully added the User")
+					
+				}
+				else{
+					window.alert("User Already Existed")
+				}
+			}
+		}
+		let show_User=()=>{
+			if(users_list.length==0){
+				parent.innerHTML='Sorry!No users are there'
+			}
+			else{
+				parent.innerHTML=''
+			users_list.forEach((ele)=>{
+				let child=document.createElement('div')
+				child.setAttribute('class','child')
+				parent.append(child)
+				let idTag=document.createElement('h2')
+				idTag.innerHTML=ele.id
+				idTag.setAttribute('class','styles')
+				let nameTag=document.createElement('h3')
+				nameTag.innerHTML=ele.name
+				let emailTag=document.createElement('p')
+				emailTag.innerHTML=ele.email;
+				child.append(idTag,nameTag,emailTag)
+			})
+			}
+			
+		}
+		let clear_User=()=>{
+			users_list=[]
+			alert("Successfully Cleared the users")
+			parent.innerHTML='sorry!no users are there'
+		}
+		newBtn.addEventListener('click',new_User)
+		showBtn.addEventListener('click',show_User)
+		clearBtn.addEventListener('click',clear_User)
+	</script>
+</body>
+</html>
